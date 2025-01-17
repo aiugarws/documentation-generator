@@ -1,6 +1,33 @@
 import os
 import re
 
+def get_classes_and_controllers(location):
+    classes = []
+    controllers = []
+    for folder in os.walk(location):
+        for filename in os.listdir(folder[0]):
+            if '.java' in filename:
+                if 'Controller' in filename:
+                    controllers.append(os.path.join(folder[0], filename))
+                else:
+                    classes.append(os.path.join(folder[0], filename))
+
+    return classes, controllers
+
+def get_content_by_controller(classes, controller):
+    models = []
+    controller_content = ""
+    with open(controller, 'r') as f:
+        write = False
+        for line in f:
+            if '@RestController' in line:
+                write = True
+            if write:
+                models = add_models(models, line, "\\(*\\).{")[0]
+                controller_content =controller_content + line
+
+    return controller_content + get_models(models, classes)
+
 def compile_content(location):
     classes = []
     controllers = ""
