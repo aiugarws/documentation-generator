@@ -61,6 +61,4 @@ def get_models(models, classes):
 
 def get_content(path):
     content = compile_content(path)
-    content = content + "Create a yaml contract based on these classes"
-    print(content)
     return content

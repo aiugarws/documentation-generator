@@ -1,0 +1,295 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Webhook Receiver API",
+    "version": "1.0.0",
+    "description": "API for handling webhook receivers."
+  },
+  "paths": {
+    "/http-health": {
+      "get": {
+        "summary": "Health check endpoint",
+        "operationId": "healthCheck",
+        "responses": {
+          "200": {
+            "description": "The server is healthy",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/webhook-receivers/200": {
+      "post": {
+        "summary": "Return 200 OK",
+        "operationId": "return200",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Event"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully handled the event"
+          }
+        }
+      }
+    },
+    "/webhook-receivers/wait/200": {
+      "post": {
+        "summary": "Return 200 OK after a delay",
+        "operationId": "return200AfterDelay",
+        "parameters": [
+          {
+            "name": "time",
+            "in": "query",
+            "required": false,
+            "description": "The delay time in seconds (default is 5 seconds)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Event"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully handled the event after a delay"
+          }
+        }
+      }
+    },
+    "/webhook-receivers/302": {
+      "post": {
+        "summary": "Return 302 Found",
+        "operationId": "return302",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Event"
+              }
+            }
+          }
+        },
+        "responses": {
+          "302": {
+            "description": "Redirects to another resource"
+          }
+        }
+      }
+    },
+    "/webhook-receivers/404": {
+      "post": {
+        "summary": "Return 404 Not Found",
+        "operationId": "return404",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Event"
+              }
+            }
+          }
+        },
+        "responses": {
+          "404": {
+            "description": "Event not found"
+          }
+        }
+      }
+    },
+    "/webhook-receivers/500": {
+      "post": {
+        "summary": "Return 500 Internal Server Error",
+        "operationId": "return500",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Event"
+              }
+            }
+          }
+        },
+        "responses": {
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/webhook-receivers/redirect": {
+      "get": {
+        "summary": "Redirect endpoint",
+        "operationId": "redirected",
+        "responses": {
+          "200": {
+            "description": "Successfully redirected"
+          }
+        }
+      }
+    },
+    "/webhook-receivers/callbacks": {
+      "post": {
+        "summary": "Handle callbacks",
+        "operationId": "handleCallback",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchEvents"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully handled callback events"
+          }
+        }
+      }
+    },
+    "/webhook-receivers/check/{status}": {
+      "get": {
+        "summary": "Check status of webhook calls",
+        "operationId": "checkStatus",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "path",
+            "required": true,
+            "description": "Status to check",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Check result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CallResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/webhook-receivers/v2/callbacks": {
+      "post": {
+        "summary": "Handle callbacks (v2)",
+        "operationId": "handleCallbackV2",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchEvents"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully handled v2 callback events"
+          }
+        }
+      }
+    },
+    "/webhook-receivers/v2/check/{status}": {
+      "get": {
+        "summary": "Check status of webhook calls (v2)",
+        "operationId": "checkStatusV2",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "path",
+            "required": true,
+            "description": "Status to check",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Check result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CallResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Event": {
+        "type": "object",
+        "properties": {
+          "eventType": {
+            "type": "string",
+            "description": "Type of the event"
+          },
+          "data": {
+            "type": "object",
+            "description": "Data associated with the event"
+          }
+        },
+        "required": ["eventType", "data"]
+      },
+      "BatchEvents": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Event"
+            }
+          }
+        },
+        "required": ["items"]
+      },
+      "CallResponse": {
+        "type": "object",
+        "properties": {
+          "wasCalled": {
+            "type": "boolean",
+            "description": "Indicates if the call was executed"
+          }
+        },
+        "required": ["wasCalled"]
+      }
+    }
+  }
+}
