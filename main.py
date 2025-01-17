@@ -20,4 +20,3 @@ else:
 # Save OpenAPI documentation to a JSON file
 response = save_json_from_response(openapi_documentation, "openapi_documentation.json")
 
-print(response)

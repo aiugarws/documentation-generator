@@ -1,7 +1,7 @@
 import os
-
+import javalang
+import json
 from openai import AzureOpenAI
-
 
 # Function to generate OpenAPI 3.0.1 documentation in a single JSON object
 def generate_openapi_documentation(concatenated_content):
@@ -14,11 +14,21 @@ def generate_openapi_documentation(concatenated_content):
 
     # Specific prompt to request OpenAPI 3.0.1 documentation in JSON format
     prompt = f"""
-    Generate OpenAPI 3.0.1 documentation in JSON format for the following Java controller classes. The documentation should include:
-    - Paths with operations (GET, PUT, etc.)
-    - Parameters with type, description, and required flags
-    - Responses with status codes, descriptions, and schema references
-    - Reusable schemas for request and response bodies under the components section
+    Generate a complete OpenAPI 3.0.1 documentation in JSON format for all the following Java controller classes. The documentation should include details for all provided endpoints, up to 100 endpoints, without omitting any. Ensure the output is concise, accurate, and adheres strictly to the OpenAPI specification.
+
+    The documentation must include:
+    - **Paths** :with operations (GET, POST, PUT, DELETE, etc.) and meaningful descriptions for each operation.
+        - If a description is missing, provide a placeholder based on the method and resource name, like "Get account" or "Update resource"
+        - If multiple operation have the same path should group all related operations (e.g., `GET`, `PUT`, `POST`, `DELETE`) under the same path
+        - If multiple same path but different path variables, then create a new path for each of it.
+    - Each operation must include a unique `operationId` and a `description`. Use the format `<HTTP method><CamelCase path>` (e.g., `getUsersById`) for operationId. Ensure `operationId` values are unique across all operations in the API and do not contais numbers. For `description` use the operation and the resource name, like "Get account".
+    - **Parameters** with type, description, and required flags. For missing descriptions, provide placeholders like "Parameter description not provided."
+    - **Responses** with status codes, descriptions, and schema references. If response descriptions are missing, add placeholders like "Response description not provided."
+    - **Reusable schemas** for request and response bodies under the components section. If a schema is referenced but not defined, create a placeholder schema with a description like "Placeholder schema for SchemaName."
+    - No comments, suggestions, or placeholders like "add your additional endpoints" should be included in the documentation. The output must strictly focus on the provided Java classes and their details.
+    - No include health paths 
+    
+    Document the full set of endpoints, up to 100, based on the provided input. Ensure the resulting JSON is complete and valid according to the OpenAPI 3.0.1 specification.
 
     Here are the @RestController classes:
     {concatenated_content}
@@ -37,6 +47,7 @@ def generate_openapi_documentation(concatenated_content):
     openapi_content = response.choices[0].message.content
 
     return openapi_content
+
 
 
 def save_json_from_response(response: str, file_path: str) -> None:
