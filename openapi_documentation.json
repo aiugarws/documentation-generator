@@ -3,33 +3,24 @@
   "info": {
     "title": "Webhook Receiver API",
     "version": "1.0.0",
-    "description": "API for handling webhook receivers."
+    "description": "API documentation for the Webhook Receiver."
   },
   "paths": {
     "/webhook-receivers/200": {
       "post": {
         "operationId": "postWebhookReceivers200",
-        "description": "Return 200 with event.",
+        "description": "Return 200",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Event"
-              }
+              "schema": { "$ref": "#/components/schemas/Event" }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
-              }
-            }
+            "description": "Successful Operation"
           }
         }
       }
@@ -37,38 +28,27 @@
     "/webhook-receivers/wait/200": {
       "post": {
         "operationId": "postWebhookReceiversWait200",
-        "description": "Return 200 after delay with event.",
+        "description": "Return 200 after a delay",
         "parameters": [
           {
             "name": "time",
             "in": "query",
             "required": false,
-            "description": "Delay time in seconds.",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" },
+            "description": "Delay time for the response"
           }
         ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Event"
-              }
+              "schema": { "$ref": "#/components/schemas/Event" }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
-              }
-            }
+            "description": "Successful Operation"
           }
         }
       }
@@ -76,27 +56,18 @@
     "/webhook-receivers/302": {
       "post": {
         "operationId": "postWebhookReceivers302",
-        "description": "Return 302 with event.",
+        "description": "Return 302",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Event"
-              }
+              "schema": { "$ref": "#/components/schemas/Event" }
             }
           }
         },
         "responses": {
           "302": {
-            "description": "Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
-              }
-            }
+            "description": "Found"
           }
         }
       }
@@ -104,27 +75,18 @@
     "/webhook-receivers/404": {
       "post": {
         "operationId": "postWebhookReceivers404",
-        "description": "Return 404 with event.",
+        "description": "Return 404",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Event"
-              }
+              "schema": { "$ref": "#/components/schemas/Event" }
             }
           }
         },
         "responses": {
           "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
-              }
-            }
+            "description": "Not Found"
           }
         }
       }
@@ -132,27 +94,18 @@
     "/webhook-receivers/500": {
       "post": {
         "operationId": "postWebhookReceivers500",
-        "description": "Return 500 with event.",
+        "description": "Return 500",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Event"
-              }
+              "schema": { "$ref": "#/components/schemas/Event" }
             }
           }
         },
         "responses": {
           "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
-              }
-            }
+            "description": "Internal Server Error"
           }
         }
       }
@@ -160,17 +113,10 @@
     "/webhook-receivers/redirect": {
       "get": {
         "operationId": "getWebhookReceiversRedirect",
-        "description": "Redirected.",
+        "description": "Get redirected",
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
-              }
-            }
+            "description": "Successful Operation"
           }
         }
       }
@@ -178,27 +124,18 @@
     "/webhook-receivers/callbacks": {
       "post": {
         "operationId": "postWebhookReceiversCallbacks",
-        "description": "Handle callback with event.",
+        "description": "Handle callback",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Event"
-              }
+              "schema": { "$ref": "#/components/schemas/Event" }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
-              }
-            }
+            "description": "Successful Operation"
           }
         }
       }
@@ -206,38 +143,27 @@
     "/webhook-receivers/callbacks/application": {
       "post": {
         "operationId": "postWebhookReceiversCallbacksApplication",
-        "description": "Handle callback for application.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Event"
-              }
-            }
-          }
-        },
+        "description": "Handle callback for application",
         "parameters": [
           {
             "name": "x-lc-application",
             "in": "header",
             "required": true,
-            "description": "Application identifier.",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" },
+            "description": "Application header"
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Event" }
+            }
+          }
+        },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
-              }
-            }
+            "description": "Successful Operation"
           }
         }
       }
@@ -245,26 +171,22 @@
     "/webhook-receivers/check/{status}": {
       "get": {
         "operationId": "getWebhookReceiversCheckStatus",
-        "description": "Check status.",
+        "description": "Check status",
         "parameters": [
           {
             "name": "status",
             "in": "path",
             "required": true,
-            "description": "Status to check.",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" },
+            "description": "Status to check"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Successful Operation",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/CallResponse" }
               }
             }
           }
@@ -273,36 +195,30 @@
     },
     "/webhook-receivers/callbacks/event-type/{eventType}/resource/{resourceId}/check": {
       "get": {
-        "operationId": "getWebhookReceiversCheckCallback",
-        "description": "Check callback for event type and resource.",
+        "operationId": "getWebhookReceiversCallbacksCheck",
+        "description": "Check callback by event type and resource ID",
         "parameters": [
           {
             "name": "eventType",
             "in": "path",
             "required": true,
-            "description": "Type of event.",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" },
+            "description": "Event type"
           },
           {
             "name": "resourceId",
             "in": "path",
             "required": true,
-            "description": "Resource identifier.",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" },
+            "description": "Resource ID"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Successful Operation",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/CallResponse" }
               }
             }
           }
@@ -311,45 +227,37 @@
     },
     "/webhook-receivers/callbacks/event-type/{eventType}/resource/{resourceId}/application/{applicationId}/check": {
       "get": {
-        "operationId": "getWebhookReceiversCheckCallbackForApplication",
-        "description": "Check callback for event type, resource and application.",
+        "operationId": "getWebhookReceiversCallbacksApplicationCheck",
+        "description": "Check callback for application by event type and resource ID",
         "parameters": [
           {
             "name": "eventType",
             "in": "path",
             "required": true,
-            "description": "Type of event.",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" },
+            "description": "Event type"
           },
           {
             "name": "resourceId",
             "in": "path",
             "required": true,
-            "description": "Resource identifier.",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" },
+            "description": "Resource ID"
           },
           {
             "name": "applicationId",
             "in": "path",
             "required": true,
-            "description": "Application identifier.",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" },
+            "description": "Application ID"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Successful Operation",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/CallResponse" }
               }
             }
           }
@@ -359,27 +267,18 @@
     "/webhook-receivers/batch/200": {
       "post": {
         "operationId": "postWebhookReceiversBatch200",
-        "description": "Return 200 with batch events.",
+        "description": "Return 200 for batch",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BatchEvents"
-              }
+              "schema": { "$ref": "#/components/schemas/BatchEvents" }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
-              }
-            }
+            "description": "Successful Operation"
           }
         }
       }
@@ -387,38 +286,26 @@
     "/webhook-receivers/batch/wait/200": {
       "post": {
         "operationId": "postWebhookReceiversBatchWait200",
-        "description": "Return 200 after delay with batch events.",
+        "description": "Return 200 for batch after a delay",
         "parameters": [
           {
             "name": "time",
             "in": "query",
-            "required": false,
-            "description": "Delay time in seconds.",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" },
+            "description": "Delay time for the response"
           }
         ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BatchEvents"
-              }
+              "schema": { "$ref": "#/components/schemas/BatchEvents" }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
-              }
-            }
+            "description": "Successful Operation"
           }
         }
       }
@@ -426,27 +313,18 @@
     "/webhook-receivers/batch/302": {
       "post": {
         "operationId": "postWebhookReceiversBatch302",
-        "description": "Return 302 with batch events.",
+        "description": "Return 302 for batch",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BatchEvents"
-              }
+              "schema": { "$ref": "#/components/schemas/BatchEvents" }
             }
           }
         },
         "responses": {
           "302": {
-            "description": "Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
-              }
-            }
+            "description": "Found"
           }
         }
       }
@@ -454,27 +332,18 @@
     "/webhook-receivers/batch/404": {
       "post": {
         "operationId": "postWebhookReceiversBatch404",
-        "description": "Return 404 with batch events.",
+        "description": "Return 404 for batch",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BatchEvents"
-              }
+              "schema": { "$ref": "#/components/schemas/BatchEvents" }
             }
           }
         },
         "responses": {
           "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
-              }
-            }
+            "description": "Not Found"
           }
         }
       }
@@ -482,27 +351,18 @@
     "/webhook-receivers/batch/500": {
       "post": {
         "operationId": "postWebhookReceiversBatch500",
-        "description": "Return 500 with batch events.",
+        "description": "Return 500 for batch",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BatchEvents"
-              }
+              "schema": { "$ref": "#/components/schemas/BatchEvents" }
             }
           }
         },
         "responses": {
           "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
-              }
-            }
+            "description": "Internal Server Error"
           }
         }
       }
@@ -510,27 +370,18 @@
     "/webhook-receivers/batch/callbacks": {
       "post": {
         "operationId": "postWebhookReceiversBatchCallbacks",
-        "description": "Handle batch callback.",
+        "description": "Handle batch callback",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BatchEvents"
-              }
+              "schema": { "$ref": "#/components/schemas/BatchEvents" }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
-              }
-            }
+            "description": "Successful Operation"
           }
         }
       }
@@ -538,388 +389,27 @@
     "/webhook-receivers/batch/callbacks/application": {
       "post": {
         "operationId": "postWebhookReceiversBatchCallbacksApplication",
-        "description": "Handle batch callback for application.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BatchEvents"
-              }
-            }
-          }
-        },
+        "description": "Handle batch callback for application",
         "parameters": [
           {
             "name": "x-lc-application",
             "in": "header",
             "required": true,
-            "description": "Application identifier.",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/webhook-receivers/v2/200": {
-      "post": {
-        "operationId": "postWebhookReceiversV2200",
-        "description": "Return 200 with batch events (v2).",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BatchEvents"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/webhook-receivers/v2/wait/200": {
-      "post": {
-        "operationId": "postWebhookReceiversV2Wait200",
-        "description": "Return 200 after delay with batch events (v2).",
-        "parameters": [
-          {
-            "name": "time",
-            "in": "query",
-            "required": false,
-            "description": "Delay time in seconds.",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" },
+            "description": "Application header"
           }
         ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BatchEvents"
-              }
+              "schema": { "$ref": "#/components/schemas/BatchEvents" }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/webhook-receivers/v2/302": {
-      "post": {
-        "operationId": "postWebhookReceiversV2302",
-        "description": "Return 302 with batch events (v2).",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BatchEvents"
-              }
-            }
-          }
-        },
-        "responses": {
-          "302": {
-            "description": "Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/webhook-receivers/v2/404": {
-      "post": {
-        "operationId": "postWebhookReceiversV2404",
-        "description": "Return 404 with batch events (v2).",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BatchEvents"
-              }
-            }
-          }
-        },
-        "responses": {
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/webhook-receivers/v2/500": {
-      "post": {
-        "operationId": "postWebhookReceiversV2500",
-        "description": "Return 500 with batch events (v2).",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BatchEvents"
-              }
-            }
-          }
-        },
-        "responses": {
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/webhook-receivers/v2/redirect": {
-      "get": {
-        "operationId": "getWebhookReceiversV2Redirect",
-        "description": "Redirected (v2).",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/webhook-receivers/v2/callbacks": {
-      "post": {
-        "operationId": "postWebhookReceiversV2Callbacks",
-        "description": "Handle batch callback (v2).",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BatchEvents"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/webhook-receivers/v2/callbacks/install": {
-      "post": {
-        "operationId": "postWebhookReceiversV2CallbacksInstall",
-        "description": "Handle batch callback for install (v2).",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BatchEvents"
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "installId",
-            "in": "query",
-            "required": true,
-            "description": "Install identifier.",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/webhook-receivers/v2/check/{status}": {
-      "get": {
-        "operationId": "getWebhookReceiversV2CheckStatus",
-        "description": "Check status (v2).",
-        "parameters": [
-          {
-            "name": "status",
-            "in": "path",
-            "required": true,
-            "description": "Status to check (v2).",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/webhook-receivers/v2/callbacks/event-type/{eventType}/resource/{resourceId}/check": {
-      "get": {
-        "operationId": "getWebhookReceiversV2CheckCallback",
-        "description": "Check callback for event type and resource (v2).",
-        "parameters": [
-          {
-            "name": "eventType",
-            "in": "path",
-            "required": true,
-            "description": "Type of event (v2).",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "resourceId",
-            "in": "path",
-            "required": true,
-            "description": "Resource identifier (v2).",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/webhook-receivers/v2/callbacks/event-type/{eventType}/resource/{resourceId}/install/{installId}/check": {
-      "get": {
-        "operationId": "getWebhookReceiversV2CheckCallbackForInstall",
-        "description": "Check callback for event type, resource and install (v2).",
-        "parameters": [
-          {
-            "name": "eventType",
-            "in": "path",
-            "required": true,
-            "description": "Type of event (v2).",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "resourceId",
-            "in": "path",
-            "required": true,
-            "description": "Resource identifier (v2).",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "installId",
-            "in": "path",
-            "required": true,
-            "description": "Install identifier (v2).",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
-                }
-              }
-            }
+            "description": "Successful Operation"
           }
         }
       }
@@ -930,15 +420,16 @@
       "Event": {
         "type": "object",
         "properties": {
+          "eventType": {
+            "type": "string",
+            "description": "Type of the event."
+          },
           "data": {
             "type": "object",
-            "additionalProperties": true
-          },
-          "eventType": {
-            "type": "string"
+            "description": "Data related to the event."
           }
         },
-        "description": "Placeholder schema for Event"
+        "description": "Placeholder schema for Event."
       },
       "BatchEvents": {
         "type": "object",
@@ -947,19 +438,21 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Event"
-            }
+            },
+            "description": "List of events."
           }
         },
-        "description": "Placeholder schema for BatchEvents"
+        "description": "Placeholder schema for BatchEvents."
       },
       "CallResponse": {
         "type": "object",
         "properties": {
           "wasCalled": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Indicates if the call was made."
           }
         },
-        "description": "Response indicating the call status."
+        "description": "Placeholder schema for CallResponse."
       }
     }
   }

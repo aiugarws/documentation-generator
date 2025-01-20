@@ -1,17 +1,17 @@
 import os
-import javalang
-import json
+
 from openai import AzureOpenAI
 
-# Function to generate OpenAPI 3.0.1 documentation in a single JSON object
-def generate_openapi_documentation(concatenated_content):
-    # Set up the Azure OpenAI client
-    client = AzureOpenAI(
-        azure_endpoint=os.environ["ENDPOINT"],
-        api_key=os.environ["API_KEY"],
-        api_version="2024-02-01"
-    )
+# Set up the Azure OpenAI client
+client = AzureOpenAI(
+    azure_endpoint="",
+    api_key="",
+    api_version="2024-02-01"
+)
 
+
+# Function to generate OpenAPI 3.0.1 documentation in a single JSON object
+def generate_controller_documentation(concatenated_content):
     # Specific prompt to request OpenAPI 3.0.1 documentation in JSON format
     prompt = f"""
     Generate a complete OpenAPI 3.0.1 documentation in JSON format for all the following Java controller classes. The documentation should include details for all provided endpoints, up to 100 endpoints, without omitting any. Ensure the output is concise, accurate, and adheres strictly to the OpenAPI specification.
@@ -40,7 +40,7 @@ def generate_openapi_documentation(concatenated_content):
             "role": "user",
             "content": prompt,
         }],
-        model="gpt-4o-mini",
+        model="gpt-4o-dev",
     )
 
     # Extract OpenAPI content from the response
@@ -48,6 +48,18 @@ def generate_openapi_documentation(concatenated_content):
 
     return openapi_content
 
+
+def generate_documentation(openapi_documentation):
+    prompt = openapi_documentation + "combine these contracts into 1"
+
+    openapi_response = client.chat.completions.create(
+        messages=[{
+            "role": "user",
+            "content": prompt,
+        }],
+        model="gpt-4o-dev",
+    ).choices[0].message.content
+    return openapi_response
 
 
 def save_json_from_response(response: str, file_path: str) -> None:
