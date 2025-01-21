@@ -65,6 +65,11 @@ def add_models(models, line, terminal):
         if value and value not in models:
             models.append(value)
             modified = True
+    if "@RequestBody" in line:
+        value = re.split('@RequestBody', line)[1].split()[0]
+        if value and value not in models:
+            models.append(value)
+            modified = True
     return models, modified
 
 def get_models(models, classes):
@@ -92,7 +97,7 @@ def get_content(path):
 
 def add_previous_contract(path):
     doc = ""
-    with open(path, 'r') as f:
+    with open(path, encoding="utf8") as f:
         for line in f:
             doc = doc + line
 
