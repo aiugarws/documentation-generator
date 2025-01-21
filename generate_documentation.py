@@ -4,8 +4,8 @@ from openai import AzureOpenAI
 
 # Set up the Azure OpenAI client
 client = AzureOpenAI(
-    azure_endpoint="",
-    api_key="",
+    azure_endpoint=os.environ["endpoint"],
+    api_key=os.environ["api_key"],
     api_version="2024-02-01"
 )
 
@@ -27,7 +27,7 @@ def generate_controller_documentation(concatenated_content):
     - **Reusable schemas** for request and response bodies under the components section. If a schema is referenced but not defined, create a placeholder schema with a description like "Placeholder schema for SchemaName."
     - No comments, suggestions, or placeholders like "add your additional endpoints" should be included in the documentation. The output must strictly focus on the provided Java classes and their details.
     - No include health paths 
-    
+
     Document the full set of endpoints, up to 100, based on the provided input. Ensure the resulting JSON is complete and valid according to the OpenAPI 3.0.1 specification.
 
     Here are the @RestController classes:
@@ -80,3 +80,35 @@ def save_json_from_response(response: str, file_path: str) -> None:
     # Save the extracted JSON content to a file
     with open(file_path, 'w') as file:
         file.write(json_content)
+
+
+def generate_contract_update(openapi_documentation, contract_documentation):
+    prompt = f"""
+        Update this documentation in JSON format {contract_documentation} for all the following Java controller classes. The documentation should only append the missing endpoints to the previous one, without omitting any. Ensure the output is concise, accurate, and adheres strictly to the OpenAPI specification.
+
+        The documentation must include:
+        - **Paths** :with operations (GET, POST, PUT, DELETE, etc.) and meaningful descriptions for each operation.
+            - If a description is missing, provide a placeholder based on the method and resource name, like "Get account" or "Update resource"
+            - If multiple operation have the same path should group all related operations (e.g., `GET`, `PUT`, `POST`, `DELETE`) under the same path
+            - If multiple same path but different path variables, then create a new path for each of it.
+        - Each operation must include a unique `operationId` and a `description`. Use the format `<HTTP method><CamelCase path>` (e.g., `getUsersById`) for operationId. Ensure `operationId` values are unique across all operations in the API and do not contais numbers. For `description` use the operation and the resource name, like "Get account".
+        - **Parameters** with type, description, and required flags. For missing descriptions, provide placeholders like "Parameter description not provided."
+        - **Responses** with status codes, descriptions, and schema references. If response descriptions are missing, add placeholders like "Response description not provided."
+        - **Reusable schemas** for request and response bodies under the components section. If a schema is referenced but not defined, create a placeholder schema with a description like "Placeholder schema for SchemaName."
+        - No comments, suggestions, or placeholders like "add your additional endpoints" should be included in the documentation. The output must strictly focus on the provided Java classes and their details.
+
+        Document the full set of endpoints, up to 100, based on the provided input. Ensure the resulting JSON is complete and valid according to the OpenAPI 3.0.1 specification.
+
+        Here are the @RestController classes:
+        {openapi_documentation} """
+
+    print(prompt)
+    openapi_response = client.chat.completions.create(
+        messages=[{
+            "role": "user",
+            "content": prompt,
+        }],
+        model="gpt-4o-dev",
+    ).choices[0].message.content
+
+    return openapi_response

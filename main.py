@@ -1,9 +1,11 @@
 import project_parser
-from generate_documentation import generate_controller_documentation, save_json_from_response, generate_documentation
+from generate_documentation import generate_controller_documentation, save_json_from_response, generate_documentation, \
+    generate_contract_update
 
 # path to project, add up to main so it doesn't parse Test files
-path = r"C:\Users\aiuga\workspace\lc-webhook-receiver-service\src\main\java\com\sdl\lt\lc\webhook\receiver"
-
+path = r"C:\Users\vblajan\Desktop\Work\Public API\lc-webhook-delivery-service\src\main"
+contract_path = r"C:\Users\vblajan\Desktop\Work\Public API\webhook-delivery\Webhook Delivery API.oas2.yml"
+controller_path = r"C:\Users\vblajan\Desktop\Work\Public API\lc-webhook-delivery-service\src\main\java\com\sdl\lt\lc\webhook\delivery\web\WebhookDeliveryController.java"
 classes, controllers = project_parser.get_classes_and_controllers(path)
 
 
@@ -19,19 +21,20 @@ def main():
         save_json_from_response(documentation, "openapi_documentation.json")
     elif choice == '2':
         print("Analyzing existing documentation...")
-        # generate_improved_docs()
+        documentation = generate_contract_update(controller_content, contract_documentation)
+        save_json_from_response(documentation, "openapi_documentation.json")
     else:
         print("Invalid choice. Please enter 1 or 2.")
 
 
-i = 1
 openapi_documentation = ""
+controller_content = project_parser.get_content_by_controller(classes, controller_path)
 for controller in controllers:
-    content = project_parser.get_content_by_controller(classes, controller)
-    i += 1
+    content = project_parser.get_content_by_controller(classes, controller_path)
     if content != "":
-        rez = generate_controller_documentation(content)
+        rez =  generate_controller_documentation(content)
         openapi_documentation = openapi_documentation + rez
+contract_documentation = project_parser.add_previous_contract(contract_path)
 
 if __name__ == "__main__":
     main()

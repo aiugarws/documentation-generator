@@ -89,3 +89,11 @@ def get_models(models, classes):
 def get_content(path):
     content = compile_content(path)
     return content
+
+def add_previous_contract(path):
+    doc = ""
+    with open(path, 'r') as f:
+        for line in f:
+            doc = doc + line
+
+    return doc
